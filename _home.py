@@ -28,10 +28,10 @@ def main() -> None:
 
     # 建立介面與AI
     if menu == Options.chat:
-        chat_page.page(menu, ChatGPT(api_key=openai_api_key))
+        chat_page.page(ChatGPT(api_key=openai_api_key))
 
     elif menu == Options.translate_:
-        translate_page.page(menu, TranslateChain(api_key=openai_api_key))
+        translate_page.page(TranslateChain(api_key=openai_api_key))
 
 
 if __name__ == "__main__":

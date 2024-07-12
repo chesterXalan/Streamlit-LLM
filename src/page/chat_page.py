@@ -12,13 +12,12 @@ from ..utils.streamlit_session import (
 )
 
 
-def page(title: str, bot: ChatGPT) -> None:
+def page(bot: ChatGPT) -> None:
     """
     聊天頁面
     """
     init_session_state([SessionState("chat_messages", [])])
 
-    st.title(title)
     render_history(attr="chat_messages")
 
     # 使用者輸入

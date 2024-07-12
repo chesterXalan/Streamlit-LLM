@@ -1,6 +1,8 @@
 import streamlit as st
 
-from src.utils.streamlit_session import (
+from ..service.chain_bot import TranslateChain
+from ..utils.streamlit_msg import Avatar, Role
+from ..utils.streamlit_session import (
     SessionState,
     init_session_state,
     render_ai_chat,
@@ -9,17 +11,13 @@ from src.utils.streamlit_session import (
     render_system_chat,
 )
 
-from ..service.chain_bot import TranslateChain
-from ..utils.streamlit_msg import Avatar, Role
 
-
-def page(title: str, bot: TranslateChain) -> None:
+def page(bot: TranslateChain) -> None:
     """
     翻譯頁面
     """
     init_session_state([SessionState("translate_messages", [])])
 
-    st.title(title)
     # 語言選單
     lang = st.selectbox("想翻譯成什麼語言?", ["中文", "英文", "日文", "韓文"])
     render_history(attr="translate_messages")
