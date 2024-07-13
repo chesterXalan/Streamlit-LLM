@@ -1,0 +1,62 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+# pre-commit install        啟用指定的 git hook
+# pre-commit autoupdate     更新以下 repo 的版本
+# pre-commit run --all-files 全檔案檢查，而不是只有被提交的檔案
+# pre-commit run <hook_id> --all-files 只檢查特定一個 hook 是否通過
+
+default_install_hook_types: [ pre-commit, commit-msg ]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+        args: [ "--maxkb=8192" ]
+      - id: check-ast
+        language_version: python3.12
+      - id: name-tests-test
+        args: [ "--pytest-test-first" ]
+      - id: check-case-conflict
+      - id: check-yaml
+      - id: check-toml
+      - id: check-xml
+
+  - repo: https://gitlab.com/bmares/check-json5
+    rev: v1.0.0
+    hooks:
+      - id: check-json5
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.1
+    hooks:
+      - id: ruff
+      - id: ruff-format
+        args: [ --check ]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.1
+    hooks:
+      - id: mypy
+        name: mypy
+        # language: system
+        exclude: "^(playground|frontend|app/service/my_langchain)/.*\\.py$"
+        args: [ "--config-file=pyproject.toml" ]
+
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.12.0
+    hooks:
+      - id: markdownlint
+        args: [ "-r", "~MD013,~MD024,~MD026" ]
+
+  - repo: https://github.com/IamTheFij/docker-pre-commit
+    rev: v3.0.1
+    hooks:
+      - id: docker-compose-check
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.27.0
+    hooks:
+      - id: commitizen
