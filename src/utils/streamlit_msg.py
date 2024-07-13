@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import StrEnum, auto
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -11,9 +11,9 @@ class MessageModel(BaseModel):
 
 
 class Role(StrEnum):
-    system = "system"
-    human = "human"
-    ai = "ai"
+    system = auto()
+    human = auto()
+    ai = auto()
 
 
 class Avatar(StrEnum):
