@@ -5,9 +5,9 @@ from ..utils.streamlit_msg import Avatar
 from ..utils.streamlit_session import (
     SessionState,
     init_session_state,
-    render_ai_chat,
+    render_ai_chat_custom,
     render_history,
-    render_human_chat,
+    render_human_chat_custom,
     render_system_chat,
 )
 
@@ -29,12 +29,12 @@ def render_chat(bot: ChatGPT, prompt: str) -> None:
     """
     顯示即時對話內容
     """
-    render_human_chat("user", Avatar.human, prompt, attr="chat_messages")
+    render_human_chat_custom("user", Avatar.human, prompt, attr="chat_messages")
 
     try:
         # 將聊天紀錄傳給 ChatGPT
         stream = bot.chat(st.session_state.chat_messages)
-        render_ai_chat("assistant", Avatar.ai, stream, attr="chat_messages")
+        render_ai_chat_custom("assistant", Avatar.ai, stream, attr="chat_messages")
 
     except Exception as e:
         render_system_chat(e)
