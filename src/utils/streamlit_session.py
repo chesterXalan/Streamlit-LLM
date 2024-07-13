@@ -31,11 +31,20 @@ def render_history(*, attr: str, ignore_role: str | None = None) -> None:
             st.write(message.content)
 
 
-def render_human_chat(
+def render_human_chat(content: str, *, attr: str) -> None:
+    """
+    顯示使用者對話
+    """
+    with st.chat_message(Role.human, avatar=Avatar.human):
+        st.write(content)
+    save_message(Role.human, Avatar.human, content, attr=attr)
+
+
+def render_human_chat_custom(
     role: str, avatar: str | None, content: str, *, attr: str
 ) -> None:
     """
-    顯示使用者對話
+    顯示使用者對話 (自定義名稱與頭貼)
     """
     with st.chat_message(role, avatar=avatar):
         st.write(content)
@@ -43,6 +52,24 @@ def render_human_chat(
 
 
 def render_ai_chat(
+    content: Any,  # noqa: ANN401
+    *,
+    attr: str,
+    is_stream: bool = True,
+) -> None:
+    """
+    顯示 AI 對話
+    """
+    with st.chat_message(Role.ai, avatar=Avatar.ai):
+        if is_stream:
+            response = st.write_stream(content)
+            save_message(Role.ai, Avatar.ai, response, attr=attr)
+        else:
+            st.write(content)
+            save_message(Role.ai, Avatar.ai, content, attr=attr)
+
+
+def render_ai_chat_custom(
     role: str,
     avatar: str | None,
     content: Any,  # noqa: ANN401
@@ -51,7 +78,7 @@ def render_ai_chat(
     is_stream: bool = True,
 ) -> None:
     """
-    顯示 AI 對話
+    顯示 AI 對話 (自定義名稱與頭貼)
     """
     with st.chat_message(role, avatar=avatar):
         if is_stream:
