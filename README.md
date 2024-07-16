@@ -1,4 +1,4 @@
-# streamlit_demo
+# Streamlit-LLM
 
 Streamlit 範例程式，實作 ChatGPT 與 LangChain
 
